@@ -1,0 +1,280 @@
+/* ===========================================
+   PREDICTION PAGE
+=========================================== */
+
+.prediction-page{
+    padding:40px;
+    background:#f4f8fc;
+    min-height:100vh;
+}
+
+/* ===========================================
+   HEADER
+=========================================== */
+
+.prediction-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.prediction-header h1{
+    color:#0f4c81;
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.prediction-header p{
+    color:#666;
+    font-size:16px;
+}
+
+/* ===========================================
+   MAIN CONTAINER
+=========================================== */
+
+.prediction-container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+/* ===========================================
+   CARDS
+=========================================== */
+
+.image-card,
+.result-card{
+
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.image-card h2,
+.result-card h2{
+
+    color:#0f4c81;
+    margin-bottom:20px;
+
+}
+
+/* ===========================================
+   X-RAY IMAGE
+=========================================== */
+
+.image-card img{
+
+    width:100%;
+    border-radius:12px;
+    border:2px solid #ddd;
+
+}
+
+/* ===========================================
+   RESULT BOX
+=========================================== */
+
+.result{
+
+    text-align:center;
+    padding:25px;
+    border-radius:12px;
+    margin-bottom:30px;
+
+}
+
+.result i{
+
+    font-size:60px;
+    margin-bottom:15px;
+
+}
+
+.result h1{
+
+    font-size:30px;
+
+}
+
+/* ===========================================
+   FRACTURE
+=========================================== */
+
+.fracture{
+
+    background:#ffe6e6;
+    color:#d62828;
+
+}
+
+/* ===========================================
+   NORMAL
+=========================================== */
+
+.normal{
+
+    background:#e8f9e9;
+    color:#2e7d32;
+
+}
+
+/* ===========================================
+   CONFIDENCE BAR
+=========================================== */
+
+.confidence{
+
+    margin-bottom:30px;
+
+}
+
+.progress{
+
+    width:100%;
+    height:28px;
+    background:#ddd;
+    border-radius:30px;
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    height:100%;
+    background:#0f4c81;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+
+}
+
+/* ===========================================
+   TABLE
+=========================================== */
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:30px;
+
+}
+
+table th{
+
+    width:35%;
+    text-align:left;
+    background:#0f4c81;
+    color:white;
+    padding:14px;
+
+}
+
+table td{
+
+    padding:14px;
+    border-bottom:1px solid #ddd;
+
+}
+
+/* ===========================================
+   BUTTONS
+=========================================== */
+
+.buttons{
+
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+
+}
+
+.btn-primary,
+.btn-success{
+
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+
+}
+
+.btn-primary{
+
+    background:#0f4c81;
+
+}
+
+.btn-primary:hover{
+
+    background:#1565a7;
+
+}
+
+.btn-success{
+
+    background:#28a745;
+
+}
+
+.btn-success:hover{
+
+    background:#218838;
+
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+@media(max-width:900px){
+
+.prediction-container{
+
+    grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.prediction-page{
+
+    padding:20px;
+
+}
+
+.prediction-header h1{
+
+    font-size:26px;
+
+}
+
+.buttons{
+
+    flex-direction:column;
+
+}
+
+.result h1{
+
+    font-size:22px;
+
+}
+
+.result i{
+
+    font-size:45px;
+
+}
+
+}

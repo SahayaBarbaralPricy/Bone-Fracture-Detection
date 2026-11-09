@@ -1,0 +1,10 @@
+Flask==3.0.3
+Flask-MySQLdb==2.0.0
+tensorflow==2.16.1
+numpy==1.26.4
+opencv-python==4.10.0.84
+Pillow==10.4.0
+scikit-learn==1.5.1
+matplotlib==3.9.1
+Werkzeug==3.0.3
+python-dotenv==1.2.4

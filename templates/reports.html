@@ -1,0 +1,200 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Reports | Bone Fracture Detection
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="reports-page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div>
+            <h1>
+                <i class="fa-solid fa-file-pdf"></i>
+                Prediction Reports
+            </h1>
+
+            <p>
+                View and download your previous bone fracture detection reports.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- REPORTS CONTAINER -->
+    <div class="reports-card">
+
+        {% if predictions %}
+
+        <div class="reports-table-wrapper">
+
+            <table class="reports-table">
+
+                <thead>
+                    <tr>
+                        <th>Report</th>
+                        <th>Patient</th>
+                        <th>Body Part</th>
+                        <th>Result</th>
+                        <th>Confidence</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for item in predictions %}
+
+                    <tr>
+
+                        <!-- REPORT -->
+                        <td>
+                            <div class="report-name">
+
+                                <div class="pdf-icon">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Report #{{ item[0] }}
+                                    </strong>
+
+                                    <span>
+                                        Bone Fracture Report
+                                    </span>
+                                </div>
+
+                            </div>
+                        </td>
+
+
+                        <!-- PATIENT -->
+                        <td>
+                            <span class="patient-name">
+                                {{ item[2] or "Not Provided" }}
+                            </span>
+                        </td>
+
+
+                        <!-- BODY PART -->
+                        <td>
+                            {{ item[5] or "Not Provided" }}
+                        </td>
+
+
+                        <!-- RESULT -->
+                        <td>
+
+                            {% if item[7] == "Fracture" %}
+
+                                <span class="result-badge fracture">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    Fracture
+                                </span>
+
+                            {% else %}
+
+                                <span class="result-badge normal">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Normal
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- CONFIDENCE -->
+                        <td>
+                            <span class="confidence-value">
+                                {{ "%.2f"|format(item[8]|float) }}%
+                            </span>
+                        </td>
+
+
+                        <!-- DATE -->
+                        <td>
+
+                            {% if item[10] %}
+
+                                <span class="report-date">
+                                    {{ item[10].strftime("%d-%m-%Y") }}
+                                </span>
+
+                                <small>
+                                    {{ item[10].strftime("%I:%M %p") }}
+                                </small>
+
+                            {% else %}
+
+                                Not Available
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ACTION -->
+                        <td>
+
+                            <a
+                                href="{{ url_for('report.download_report', prediction_id=item[0]) }}"
+                                class="download-btn"
+                            >
+                                <i class="fa-solid fa-download"></i>
+                                Download
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY STATE -->
+
+        <div class="empty-reports">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-file-circle-xmark"></i>
+            </div>
+
+            <h2>No Reports Available</h2>
+
+            <p>
+                You have not generated any prediction reports yet.
+            </p>
+
+            <a
+                href="{{ url_for('upload.upload_image') }}"
+                class="upload-btn"
+            >
+                <i class="fa-solid fa-upload"></i>
+                Upload X-Ray
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

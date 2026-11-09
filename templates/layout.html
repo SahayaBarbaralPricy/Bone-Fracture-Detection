@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Bone Fracture Detection System
+        {% endblock %}
+    </title>
+
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    {% block css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TOP NAVIGATION
+     ===================================================== -->
+
+<header class="top-navigation">
+
+    <div class="navigation-container">
+
+
+        <!-- BRAND -->
+
+        <a href="{{ url_for('dashboard.home') }}"
+           class="brand">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 alt="Bone Fracture Detection Logo"
+                 class="brand-logo">
+
+            <div class="brand-text">
+
+                <span class="brand-title">
+                    Bone Fracture
+                </span>
+
+                <span class="brand-subtitle">
+                    Detection System
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- MOBILE MENU -->
+
+        <button type="button"
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                aria-label="Open navigation menu">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-navigation"
+             id="mainNavigation">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="{{ url_for('dashboard.home') }}"
+               class="nav-item {% if request.endpoint == 'dashboard.home' %}active{% endif %}">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- UPLOAD X-RAY -->
+
+            <a href="{{ url_for('upload.upload_image') }}"
+               class="nav-item {% if request.endpoint == 'upload.upload_image' %}active{% endif %}">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                <span>
+                    Upload X-Ray
+                </span>
+
+            </a>
+
+
+            <!-- HISTORY -->
+
+            <a href="{{ url_for('history.prediction_history') }}"
+               class="nav-item {% if request.endpoint == 'history.prediction_history' %}active{% endif %}">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <span>
+                    History
+                </span>
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a href="{{ url_for('report.reports') }}"
+               class="nav-item {% if request.endpoint == 'report.reports' %}active{% endif %}">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a href="{{ url_for('profile.user_profile') }}"
+               class="nav-item {% if request.endpoint == 'profile.user_profile' %}active{% endif %}">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a href="{{ url_for('auth.logout') }}"
+               class="nav-item logout-item">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- LOGGED-IN USER -->
+
+        {% if session.get('username') %}
+
+        <div class="navigation-user">
+
+            <div class="user-icon">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <span>
+                {{ session.get('username') }}
+            </span>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     FLASH MESSAGES
+     ===================================================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+    <div class="flash-container">
+
+        {% for category, message in messages %}
+
+        <div class="flash-message {{ category }}">
+
+            {% if category == 'success' %}
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            {% elif category == 'danger' %}
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+            {% elif category == 'warning' %}
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            {% else %}
+
+                <i class="fa-solid fa-circle-info"></i>
+
+            {% endif %}
+
+            <span>
+                {{ message }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+
+<!-- =====================================================
+     PAGE CONTENT
+     ===================================================== -->
+
+<main class="page-container">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="site-footer">
+
+    <div class="footer-content">
+
+        <span>
+            © 2026 Bone Fracture Detection System
+        </span>
+
+        <span>
+            Developed using Flask, TensorFlow & MySQL
+        </span>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     MOBILE NAVIGATION SCRIPT
+     ===================================================== -->
+
+<script>
+
+    const menuButton =
+        document.getElementById("mobileMenuButton");
+
+    const navigation =
+        document.getElementById("mainNavigation");
+
+
+    if (menuButton && navigation) {
+
+        menuButton.addEventListener("click", function () {
+
+            navigation.classList.toggle("mobile-open");
+
+        });
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

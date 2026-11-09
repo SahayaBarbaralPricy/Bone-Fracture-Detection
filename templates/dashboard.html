@@ -1,0 +1,373 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+Dashboard | Bone Fracture Detection System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-page">
+
+
+    <!-- =================================================
+         PAGE HEADER
+         ================================================= -->
+
+    <section class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Welcome Back 👋
+            </h1>
+
+            <p>
+                Manage your Bone Fracture Detection System from one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STATISTICS
+         ================================================= -->
+
+    <section class="stats-grid">
+
+
+        <!-- TOTAL USERS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h2>
+                    250
+                </h2>
+
+                <p>
+                    Total Users
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- X-RAYS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-x-ray"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h2>
+                    1,280
+                </h2>
+
+                <p>
+                    X-Rays Uploaded
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FRACTURES -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-bone"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h2>
+                    864
+                </h2>
+
+                <p>
+                    Fractures Detected
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- REPORTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h2>
+                    1,150
+                </h2>
+
+                <p>
+                    Reports Generated
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+         ================================================= -->
+
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Quick Actions
+            </h2>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <!-- UPLOAD -->
+
+            <a href="{{ url_for('upload.upload_image') }}"
+               class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Upload X-Ray
+                    </h3>
+
+                    <p>
+                        Upload an X-ray for fracture analysis.
+                    </p>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+            </a>
+
+
+            <!-- HISTORY -->
+
+            <a href="{{ url_for('history.prediction_history') }}"
+               class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        View History
+                    </h3>
+
+                    <p>
+                        View your previous predictions.
+                    </p>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a href="{{ url_for('profile.user_profile') }}"
+               class="action-card">
+
+                <div class="action-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        My Profile
+                    </h3>
+
+                    <p>
+                        View and manage your profile.
+                    </p>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECENT ACTIVITY
+         ================================================= -->
+
+    <section class="dashboard-section">
+
+
+        <div class="section-heading recent-heading">
+
+            <h2>
+                Recent Activity
+            </h2>
+
+            <a href="{{ url_for('history.prediction_history') }}">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="activity-card">
+
+            <div class="table-wrapper">
+
+                <table class="activity-table">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Patient
+                            </th>
+
+                            <th>
+                                Image
+                            </th>
+
+                            <th>
+                                Result
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td>
+                                John
+                            </td>
+
+                            <td>
+                                hand01.jpg
+                            </td>
+
+                            <td>
+
+                                <span class="result-badge fracture">
+                                    Fracture
+                                </span>
+
+                            </td>
+
+                            <td>
+                                26 July 2026
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                David
+                            </td>
+
+                            <td>
+                                leg02.jpg
+                            </td>
+
+                            <td>
+
+                                <span class="result-badge normal">
+                                    Normal
+                                </span>
+
+                            </td>
+
+                            <td>
+                                26 July 2026
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

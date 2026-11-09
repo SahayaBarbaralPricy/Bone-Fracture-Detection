@@ -1,0 +1,233 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Prediction Result | Bone Fracture Detection
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/prediction.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="prediction-page">
+
+    <!-- ======================================
+         HEADER
+    ======================================= -->
+
+    <div class="prediction-header">
+
+        <h1>
+            <i class="fa-solid fa-bone"></i>
+            Bone Fracture Prediction
+        </h1>
+
+        <p>
+            AI analysis result of the uploaded X-Ray image
+        </p>
+
+    </div>
+
+
+    <!-- ======================================
+         MAIN CONTAINER
+    ======================================= -->
+
+    <div class="prediction-container">
+
+
+        <!-- ==================================
+             LEFT SIDE - UPLOADED X-RAY
+        =================================== -->
+
+        <div class="image-card">
+
+            <h2>Uploaded X-Ray</h2>
+
+            <img
+                src="{{ image_url }}"
+                alt="Uploaded X-Ray"
+                class="uploaded-xray"
+            >
+
+        </div>
+
+
+        <!-- ==================================
+             RIGHT SIDE - RESULT
+        =================================== -->
+
+        <div class="result-card">
+
+            <h2>Prediction Result</h2>
+
+
+            <!-- ==============================
+                 PREDICTION RESULT
+            =============================== -->
+
+            {% if prediction == "Fracture" %}
+
+                <div class="result fracture">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <h1>
+                        Fracture Detected
+                    </h1>
+
+                </div>
+
+            {% else %}
+
+                <div class="result normal">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <h1>
+                        No Fracture Detected
+                    </h1>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- ==============================
+                 CONFIDENCE
+            =============================== -->
+
+            <div class="confidence">
+
+                <h3>
+                    Confidence
+                </h3>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        style="width: {{ confidence }}%;"
+                    >
+
+                        {{ "%.2f"|format(confidence|float) }}%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==============================
+                 PATIENT DETAILS
+            =============================== -->
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Patient
+                    </th>
+
+                    <td>
+                        {{ patient_name or "Not Provided" }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <th>
+                        Age
+                    </th>
+
+                    <td>
+                        {{ age or "Not Provided" }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <th>
+                        Gender
+                    </th>
+
+                    <td>
+                        {{ gender or "Not Provided" }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <th>
+                        Body Part
+                    </th>
+
+                    <td>
+                        {{ body_part or "Not Provided" }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <td>
+                        {{ current_date or "Today" }}
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+            <!-- ==============================
+                 BUTTONS
+            =============================== -->
+
+            <div class="buttons">
+
+                <a
+                    href="{{ url_for('upload.upload_image') }}"
+                    class="btn-primary"
+                >
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Upload Another
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('report.reports') }}"
+                    class="btn-success"
+                >
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                    View Reports
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,166 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Upload X-Ray | Bone Fracture Detection
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="upload-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+
+        <h1>
+            <i class="fa-solid fa-upload"></i>
+            Upload X-Ray Image
+        </h1>
+
+        <p>
+            Upload a patient's X-Ray image for fracture detection.
+        </p>
+
+    </div>
+
+    <!-- Upload Card -->
+    <div class="upload-card">
+
+        <form action="{{ url_for('prediction.predict') }}"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <!-- Drag Area -->
+
+            <div class="upload-box">
+
+                <img id="previewImage"
+                     src="{{ url_for('static', filename='images/upload-icon.png') }}"
+                     alt="Preview">
+
+                <h3>Select X-Ray Image</h3>
+
+                <p>
+                    PNG, JPG or JPEG
+                </p>
+
+                <input
+                    type="file"
+                    id="xray_image"
+                    name="xray_image"
+                    accept=".png,.jpg,.jpeg"
+                    onchange="previewImage(event)"
+                    required>
+
+            </div>
+
+            <!-- Patient Information -->
+
+            <div class="form-section">
+
+                <div class="form-group">
+
+                    <label>Patient Name</label>
+
+                    <input
+                        type="text"
+                        name="patient_name"
+                        placeholder="Enter Patient Name"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Patient Age</label>
+
+                    <input
+                        type="number"
+                        name="age"
+                        placeholder="Age"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Gender</label>
+
+                    <select name="gender" required>
+
+                        <option value="">Select Gender</option>
+
+                        <option>Male</option>
+
+                        <option>Female</option>
+
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Body Part</label>
+
+                    <select name="body_part" required>
+
+                        <option value="">Select Body Part</option>
+
+                        <option>Hand</option>
+
+                        <option>Arm</option>
+
+                        <option>Leg</option>
+
+                        <option>Foot</option>
+
+                        <option>Shoulder</option>
+
+                        <option>Hip</option>
+
+                        <option>Knee</option>
+
+                        <option>Spine</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="upload-btn">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                Upload Image
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+function previewImage(event){
+
+    const image = document.getElementById("previewImage");
+
+    image.src = URL.createObjectURL(event.target.files[0]);
+
+}
+
+</script>
+
+{% endblock %}

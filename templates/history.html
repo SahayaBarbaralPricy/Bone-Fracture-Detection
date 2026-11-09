@@ -1,0 +1,285 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Prediction History | Bone Fracture Detection
+{% endblock %}
+
+{% block css %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/history.css') }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="history-page">
+
+    <!-- ======================================
+         PAGE HEADER
+    ======================================= -->
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Prediction History
+        </h1>
+
+        <p>
+            View your previous bone fracture detection results.
+        </p>
+
+    </div>
+
+
+    <!-- ======================================
+         HISTORY CARD
+    ======================================= -->
+
+    <div class="history-card">
+
+        {% if predictions %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Patient Name</th>
+
+                        <th>Age</th>
+
+                        <th>Gender</th>
+
+                        <th>Body Part</th>
+
+                        <th>X-Ray</th>
+
+                        <th>Prediction</th>
+
+                        <th>Confidence</th>
+
+                        <th>Date</th>
+
+                        <th>Report</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for item in predictions %}
+
+                    <tr>
+
+                        <!-- ID -->
+
+                        <td>
+                            {{ item[0] }}
+                        </td>
+
+
+                        <!-- Patient Name -->
+
+                        <td>
+
+                            {% if item[2] %}
+                                {{ item[2] }}
+                            {% else %}
+                                Not Provided
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Age -->
+
+                        <td>
+
+                            {% if item[3] %}
+                                {{ item[3] }}
+                            {% else %}
+                                Not Provided
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Gender -->
+
+                        <td>
+
+                            {% if item[4] %}
+                                {{ item[4] }}
+                            {% else %}
+                                Not Provided
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Body Part -->
+
+                        <td>
+
+                            {% if item[5] %}
+                                {{ item[5] }}
+                            {% else %}
+                                Not Provided
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- X-Ray Image -->
+
+                        <td>
+
+                            {% if item[6] %}
+
+                                <img
+                                    src="{{ url_for('uploaded_file', filename=item[6]) }}"
+                                    alt="X-Ray"
+                                    class="history-image"
+                                >
+
+                            {% else %}
+
+                                No Image
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Prediction -->
+
+                        <td>
+
+                            {% if item[7] == "Fracture" %}
+
+                                <span class="prediction fracture">
+
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                                    Fracture
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="prediction normal">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Normal
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Confidence -->
+
+                        <td>
+
+                            {{ "%.2f"|format(item[8]|float) }}%
+
+                        </td>
+
+
+                        <!-- Date -->
+
+                        <td>
+
+                            {% if item[10] %}
+
+                                {{ item[10].strftime("%d-%m-%Y %I:%M %p") }}
+
+                            {% else %}
+
+                                Not Available
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Report -->
+
+                        <td>
+
+                            <a
+                                href="{{ url_for('report.download_report', prediction_id=item[0]) }}"
+                                class="report-btn"
+                            >
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                Download
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <!-- ======================================
+             NO HISTORY
+        ======================================= -->
+
+        <div class="empty-history">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <h2>
+                No Prediction History
+            </h2>
+
+            <p>
+                You have not performed any bone fracture detection yet.
+            </p>
+
+            <a
+                href="{{ url_for('upload.upload_image') }}"
+                class="upload-btn"
+            >
+
+                <i class="fa-solid fa-upload"></i>
+
+                Upload X-Ray
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
